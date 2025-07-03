@@ -1,0 +1,19 @@
+ja:
+  activerecord:
+    models:
+      user:
+        one: "ユーザー"
+        other: "ユーザー"
+
+  attributes:   
+      user:
+        email: "Eメール"
+        password: "パスワード"
+        username: "ユーザー名"
+
+  errors:
+    messages:
+      not_saved:
+        one: "%{resource}を保存できませんでした。%{count}件のエラーがあります。"
+        other: "%{resource}を保存できませんでした。%{count}件のエラーがあります。"
+      blank: "を入力してください" 
