@@ -1,15 +1,12 @@
 class Public::DinnersController < ApplicationController
+  before_action :authenticate_user!, except: [:top]
   before_action :set_dinner, only: [:show, :edit, :update, :destroy]
 
   def top
-    @dinners = Dinner.all
   end
 
   def index
-    @dinners = Dinner.all
-  end
-
-  def new
+    @dinners = Dinner.all.order(created_at: :desc)
     @dinner = Dinner.new
   end
 
@@ -19,7 +16,8 @@ class Public::DinnersController < ApplicationController
     if @dinner.save
       redirect_to dinners_path, notice: '投稿が成功しました'
     else
-      render :new
+      @dinners = Dinner.all.order(created_at: :desc)
+      render :index
     end
   end
 
@@ -52,4 +50,3 @@ class Public::DinnersController < ApplicationController
     params.require(:dinner).permit(:image, :title, :body, :tag_list)
   end
 end
-

@@ -7,12 +7,13 @@ Rails.application.routes.draw do
   scope module: :public do
     devise_for :users
     root to: 'dinners#top'
-    get 'homes/about', to: 'homes#about', as: :about
-    resources :dinners
     resources :post_images, only: [:new, :create, :index, :show, :destroy] do
       resource :favorites, only: [:create, :destroy]
       resources :post_comments, only: [:create, :destroy]
     end
+
+    resources :dinners, only: [:index, :show, :new, :create, :edit, :update, :destroy]    
+
     resources :users, only: [:show, :edit, :update]
   end
 
