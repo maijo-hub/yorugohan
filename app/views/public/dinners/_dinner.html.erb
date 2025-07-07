@@ -1,0 +1,7 @@
+<div class="dinner-post">
+  <% if dinner.image.attached? %>
+    <%= image_tag dinner.image.variant(resize_to_limit: [300, 300]) %><br>
+  <% end %>
+  <strong><%= link_to dinner.title, dinner_path(dinner) %></strong><br>
+  <%= simple_format(dinner.body) %><br>
+</div>

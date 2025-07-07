@@ -17,6 +17,7 @@ class Public::DinnersController < ApplicationController
       redirect_to dinners_path, notice: '投稿が成功しました'
     else
       @dinners = Dinner.all.order(created_at: :desc)
+      flash.now[:alert] = '投稿に失敗しました。必須項目を入力してください。'
       render :index
     end
   end
@@ -47,6 +48,6 @@ class Public::DinnersController < ApplicationController
   end
 
   def dinner_params
-    params.require(:dinner).permit(:image, :title, :body, :tag_list)
+    params.require(:dinner).permit(:image, :title, :body)
   end
 end
