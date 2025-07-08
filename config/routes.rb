@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
 
+  namespace :public do
+    resources :recipes
+  end
   # 管理者
   devise_for :admin, skip: [:registrations, :password], controllers: {
     sessions: 'admin/sessions'
