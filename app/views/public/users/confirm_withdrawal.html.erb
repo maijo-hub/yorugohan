@@ -1,0 +1,5 @@
+<h1>退会確認</h1>
+<p>本当に退会しますか？</p>
+
+<%= link_to "退会しない", user_path(@user), class: "btn btn-secondary" %>
+<%= button_to "退会する", withdraw_user_path(@user), method: :patch, data: { confirm: "本当に退会しますか？" }, class: "btn btn-danger" %>

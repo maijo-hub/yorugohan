@@ -1,3 +1,11 @@
 <h1>投稿詳細</h1>
 
 <%= render partial: "dinner", locals: { dinner: @dinner } %>
+<hr>
+
+<% if @dinner.user == current_user %>
+  <%= link_to '編集', edit_dinner_path(@dinner), class: 'btn btn-primary' %>
+  <%= link_to '削除', dinner_path(@dinner), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger' %>
+<% end %>
+
+<%= link_to '一覧に戻る', dinners_path, class: 'btn btn-secondary' %>
