@@ -1,0 +1,30 @@
+header {
+  background-color: #ffe8cc;
+  padding: 10px 20px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+nav ul {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav li {
+  margin: 0 15px;
+}
+
+nav a {
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+  font-size: 16px;
+  transition: color 0.3s ease;
+}
+
+nav a:hover {
+  color: #ff7f50;
+}

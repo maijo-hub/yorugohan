@@ -2,10 +2,19 @@
   <% if dinner.image.attached? %>
     <%= image_tag dinner.image.variant(resize_to_limit: [300, 300]) %><br>
   <% end %>
+
   <strong><%= link_to dinner.title, dinner_path(dinner) %></strong><br>
   <%= simple_format(dinner.body) %><br>
+
   <small>
-    投稿者: <%= dinner.user&.username || "不明なユーザー" %><br>
-    投稿日時: <%= dinner.created_at.strftime("%Y年%m月%d日") %>
+    投稿者:
+    <% if current_user == dinner.user %>
+      <%= link_to dinner.user.username, user_path(current_user) %> <!-- 自分のマイページ -->
+    <% else %>
+      <%= link_to dinner.user.username, user_path(dinner.user) %> <!-- 他人のユーザーページ -->
+    <% end %>
+    <br>
+
+    投稿日: <%= dinner.created_at.strftime("%Y年%m月%d日") %>
   </small>
 </div>
