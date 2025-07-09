@@ -2,6 +2,12 @@ class Public::UsersController < ApplicationController
   before_action :authenticate_user!
   before_action :set_user, only: [:show, :edit, :update, :confirm_withdrawal, :withdraw]
 
+  def mypage
+    @user = current_user
+    @dinners = current_user.dinners.order(created_at: :desc)
+    @recipes = current_user.recipes.order(created_at: :desc) # レシピも表示したい場合
+  end
+  
   def show
     @dinners = @user.dinners.order(created_at: :desc)
   end

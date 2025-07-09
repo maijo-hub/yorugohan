@@ -1,2 +1,8 @@
-<h1>Public::Recipes#show</h1>
-<p>Find me in app/views/public/recipes/show.html.erb</p>
+<h1>レシピ詳細</h1>
+
+<%= render partial: "recipe", locals: { recipe: @recipe } %>
+
+
+<%= link_to "編集", edit_recipe_path(@recipe) %> |
+<%= link_to "削除", recipe_path(@recipe), method: :delete, data: { confirm: "本当に削除しますか？" } %>
+<%= link_to "一覧に戻る", recipes_path %>

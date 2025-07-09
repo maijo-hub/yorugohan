@@ -1,0 +1,31 @@
+<h1><%= user.username %>さんのページ</h1>
+
+<p><strong>メールアドレス：</strong> <%= user.email %></p>
+
+<p><strong>自己紹介文：</strong><br>
+<%= simple_format(user.profile.presence || "自己紹介はまだありません") %></p>
+
+<% if user_signed_in? && current_user == user %>
+  <%= link_to 'プロフィール編集', edit_user_path(user), class: 'btn' %>
+  <%= link_to '退会する', confirm_withdrawal_user_path(user), class: 'btn', method: :get %>
+<% end %>
+
+<hr>
+
+<h2>投稿一覧</h2>
+
+<% if dinners.any? %>
+  <% dinners.each do |dinner| %>
+    <div>
+      <% if dinner.image.attached? %>
+        <%= image_tag dinner.image.variant(resize_to_limit: [300, 300]) %><br>
+      <% end %>
+      <strong><%= link_to dinner.title, dinner_path(dinner) %></strong><br>
+      <%= simple_format(dinner.body) %><br>
+      <small>投稿日時: <%= dinner.created_at.strftime("%Y/%m/%d %H:%M") %></small>
+    </div>
+    <hr>
+  <% end %>
+<% else %>
+  <p>投稿がありません。</p>
+<% end %>

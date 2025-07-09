@@ -1,9 +1,6 @@
 Rails.application.routes.draw do
 
-  namespace :public do
-    resources :recipes
-  end
-  # 管理者
+    # 管理者
   devise_for :admin, skip: [:registrations, :password], controllers: {
     sessions: 'admin/sessions'
   }
@@ -12,6 +9,8 @@ Rails.application.routes.draw do
   scope module: :public do
     devise_for :users
     root to: 'dinners#top'
+
+    resources :recipes, only: [:index, :show, :create, :edit, :update, :destroy]
 
     # 投稿関連
     resources :post_images, only: [:new, :create, :index, :show, :destroy] do
@@ -23,6 +22,7 @@ Rails.application.routes.draw do
     resources :dinners, only: [:index, :show, :new, :create, :edit, :update, :destroy]
 
     # ユーザー関連
+    get '/mypage', to: 'users#mypage', as: 'mypage'
     resources :users, only: [:show, :edit, :update] do
       member do
         get 'confirm_withdrawal'
