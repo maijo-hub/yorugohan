@@ -5,7 +5,18 @@
 
   <strong><%= link_to dinner.title, dinner_path(dinner) %></strong><br>
   <%= simple_format(dinner.body) %><br>
+<p>
+  <strong>レシピ：</strong>
+  <% if dinner.recipes.any? %>
+    <% dinner.recipes.each_with_index do |recipe, index| %>
+      <%= link_to recipe.title, recipe_path(recipe) %><%= ", " unless index == dinner.recipes.size - 1 %>
+    <% end %>
+  <% else %>
+    なし
+  <% end %>
+</p>
 
+    
   <small>
     投稿者:
     <% if current_user == dinner.user %>

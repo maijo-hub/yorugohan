@@ -15,22 +15,28 @@
 
 <%= form_with model: @dinner, local: true do |f| %>
   <p>
-    <%= f.label :image %><br>
-    <%= f.file_field :image %>
-  </p>
-
-  <p>
-    <%= f.label :title %><br>
+    <%= f.label :title, "タイトル" %><br>
     <%= f.text_field :title %>
   </p>
 
   <p>
-    <%= f.label :body %><br>
+    <%= f.label :body, "本文" %><br>
     <%= f.text_area :body %>
   </p>
 
-  <p><%= f.submit "投稿" %></p>
+  <p>
+    <%= f.label :image, "画像" %><br>
+    <%= f.file_field :image %>
+  </p>
+
+  <p>
+  <%= f.label :recipe_ids, "レシピ（複数選択可）" %><br>
+  <%= f.collection_check_boxes :recipe_ids, @my_recipes, :id, :title %>
+</p>
+
+  <%= f.submit "投稿する" %>
 <% end %>
+
 
 <hr>
 

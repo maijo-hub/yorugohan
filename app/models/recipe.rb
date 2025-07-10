@@ -1,7 +1,8 @@
 class Recipe < ApplicationRecord
   belongs_to :user
   has_one_attached :image
+  has_many :dinner_recipes, dependent: :destroy
+  has_many :dinners, through: :dinner_recipes
 
-  validates :title, presence: true
-  validates :description, presence: true
+  validates :title, presence: { message: 'タイトルは必須です' }, length: { maximum: 100, message: 'タイトルは100文字以内で入力してください' }
 end
