@@ -11,67 +11,72 @@
   </head>
 
   <body>
-  <header>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-    <div class="container">
-      <%= link_to "🍚 Yorugohan", root_path, class: "navbar-brand font-weight-bold" %>
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <div class="container">
+          <%= link_to "🍚 Yorugohan", root_path, class: "navbar-brand font-weight-bold" %>
 
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+          </button>
 
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ml-auto">
-          <% if user_signed_in? %>
-            <li class="nav-item">
-              <%= link_to dinners_path, class: "nav-link" do %>
-                <i class="fas fa-utensils"></i> 夜ごはん一覧
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+              <% if user_signed_in? %>
+                <li class="nav-item">
+                  <%= link_to dinners_path, class: "nav-link" do %>
+                    <i class="fas fa-utensils"></i> 夜ごはん一覧
+                  <% end %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to recipes_path, class: "nav-link" do %>
+                    <i class="fas fa-book-open"></i> レシピ一覧
+                  <% end %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to user_path(current_user), class: "nav-link" do %>
+                    <i class="fas fa-user"></i> マイページ
+                  <% end %>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link disabled" href="#">
+                    <i class="fas fa-search"></i> 検索（準備中）
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <%= link_to destroy_user_session_path, method: :delete, class: "nav-link" do %>
+                    <i class="fas fa-sign-out-alt"></i> ログアウト
+                  <% end %>
+                </li>
+              <% else %>
+                <li class="nav-item">
+                  <%= link_to root_path, class: "nav-link" do %>
+                    <i class="fas fa-home"></i> トップ
+                  <% end %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to new_user_registration_path, class: "nav-link" do %>
+                    <i class="fas fa-user-plus"></i> 新規登録
+                  <% end %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to new_user_session_path, class: "nav-link" do %>
+                    <i class="fas fa-sign-in-alt"></i> ログイン
+                  <% end %>
+                </li>
               <% end %>
-            </li>
-            <li class="nav-item">
-              <%= link_to recipes_path, class: "nav-link" do %>
-                <i class="fas fa-book-open"></i> レシピ一覧
-              <% end %>
-            </li>
-            <li class="nav-item">
-              <%= link_to user_path(current_user), class: "nav-link" do %>
-                <i class="fas fa-user"></i> マイページ
-              <% end %>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link disabled" href="#">
-                <i class="fas fa-search"></i> 検索（準備中）
-              </a>
-            </li>
-            <li class="nav-item">
-              <%= link_to destroy_user_session_path, method: :delete, class: "nav-link" do %>
-                <i class="fas fa-sign-out-alt"></i> ログアウト
-              <% end %>
-            </li>
-          <% else %>
-            <li class="nav-item">
-              <%= link_to root_path, class: "nav-link" do %>
-                <i class="fas fa-home"></i> トップ
-              <% end %>
-            </li>
-            <li class="nav-item">
-              <%= link_to new_user_registration_path, class: "nav-link" do %>
-                <i class="fas fa-user-plus"></i> 新規登録
-              <% end %>
-            </li>
-            <li class="nav-item">
-              <%= link_to new_user_session_path, class: "nav-link" do %>
-                <i class="fas fa-sign-in-alt"></i> ログイン
-              <% end %>
-            </li>
-          <% end %>
-        </ul>
-      </div>
-    </div>
-  </nav>
-</header>
+            </ul>
+          </div>
+        </div>
+      </nav>
 
-<div class="pt-5"></div>
-    <%= yield %>
+      <body style="padding-top: 80px;">
+    <header class="fixed-top bg-light shadow">
+      <!-- ヘッダー内容 -->
+    </header>
+  
+    <main>
+      <%= yield %>
+    </main>
   </body>
 </html>
