@@ -1,23 +1,26 @@
-<div class="top-container">
-  <h1>🌙 今日の夜ごはん、見せてみませんか？</h1>
+<div class="container py-5">
+  <div class="rounded shadow-sm p-5 text-center" style="background-color: #f0f8f5;"> <!-- 柔らかいグリーン背景 -->
+    
+    <h1 class="mb-4 display-5" style="color: #669966;">🌙 今日の夜ごはん、見せてみませんか？</h1>
 
-  <p>SNSでよく見る“映える”料理も素敵だけれど、現実の夕食はもっと素朴で実用的なもの。</p>
+    <p class="lead text-secondary mb-3">
+      SNSでよく見る“映える”料理も素敵だけれど、現実の夕食はもっと素朴で実用的なもの。
+    </p>
 
-  <p>このサイトでは、そんな「ありのままの夜ごはん」を、気軽に共有できる場所を目指しています。</p>
+    <p class="text-muted mb-3">
+      このサイトでは、そんな「ありのままの夜ごはん」を、気軽に共有できる場所を目指しています。
+    </p>
 
-  <p>🍱 華やかな盛り付けや特別なレシピじゃなくても大丈夫。</p>
+    <ul class="list-unstyled mb-4 text-secondary">
+      <li>🍱 無理しない</li>
+      <li>🍱 背伸びしない</li>
+    </ul>
 
-  <p>コンビニのお惣菜や冷凍食品、ちょっと手抜きした日も、あなたのリアルな夜ごはんをそのまま投稿してください。</p>
+    <p class="text-muted mb-4">
+      日常に寄り添った、ほんとうの夕食風景を<br>日々の暮らしを見せ合って、つながりませんか？
+    </p>
 
-  <ul>
-    <li>無理をしない</li>
-    <li>背伸びしない</li>
-  </ul>
+    <%= link_to "投稿をはじめる", dinners_path, class: "btn btn-success btn-lg px-4", style: "background-color: #a8d5a2; border-color: #a8d5a2;" %>
 
-  <p>日常に寄り添った、ほんとうの夕食風景を</p>
-  <p>日々の暮らしを見せ合って、つながりませんか？</p>
-
-  <div class="cta">
-    <%= link_to "投稿をはじめる", dinners_path %>
   </div>
 </div>
