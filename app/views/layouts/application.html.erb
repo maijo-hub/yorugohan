@@ -5,77 +5,93 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+
     <script src="https://kit.fontawesome.com/18b80b8bde.js" crossorigin="anonymous"></script>
+
     <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %> 
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
-    <header>
-      <nav class="navbar navbar-expand-lg navbar-light fixed-top shadow" style="background-color: #eaf5ea;">
-        <div class="container">
-          <%= link_to "🍚 Yorugohan", root_path, class: "navbar-brand font-weight-bold text-success" %>
-      
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-      
-          <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ml-auto align-items-center">
-              <% if user_signed_in? %>
-                <li class="nav-item">
-                  <%= link_to dinners_path, class: "nav-link text-secondary" do %>
-                    <i class="fas fa-utensils"></i> 夜ごはん
-                  <% end %>
-                </li>
-                <li class="nav-item">
-                  <%= link_to recipes_path, class: "nav-link text-secondary" do %>
-                    <i class="fas fa-book-open"></i> レシピ
-                  <% end %>
-                </li>
-                <li class="nav-item">
-                  <%= link_to user_path(current_user), class: "nav-link text-secondary" do %>
-                    <i class="fas fa-user"></i> マイページ
-                  <% end %>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link text-muted" href="#"><i class="fas fa-search"></i> 検索（準備中）</a>
-                </li>
-                <li class="nav-item">
-                  <%= link_to destroy_user_session_path, method: :delete, class: "btn btn-outline-success btn-sm ml-2" do %>
-                    <i class="fas fa-sign-out-alt"></i> ログアウト
-                  <% end %>
-                </li>
-              <% else %>
-                <li class="nav-item">
-                  <%= link_to root_path, class: "nav-link text-secondary" do %>
-                    <i class="fas fa-home"></i> トップ
-                  <% end %>
-                </li>
-                <li class="nav-item">
-                  <%= link_to new_user_registration_path, class: "btn btn-outline-success btn-sm ml-2" do %>
-                    <i class="fas fa-user-plus"></i> 新規登録
-                  <% end %>
-                </li>
-                <li class="nav-item">
-                  <%= link_to new_user_session_path, class: "btn btn-success btn-sm ml-2 text-white" do %>
-                    <i class="fas fa-sign-in-alt"></i> ログイン
-                  <% end %>
-                </li>
-              <% end %>
-            </ul>
-          </div>
-        </div>
-    </nav>
-  
+  <body style="padding-top: 120px;">  <!-- 2段分の余白 -->
+    <header class="fixed-top shadow-sm">
 
-      <body style="padding-top: 80px;">
-    <header class="fixed-top bg-light shadow">
-      <!-- ヘッダー内容 -->
-    </header>
-  
-    <main>
+    <!-- 上段：ロゴ -->
+    <div class="bg-white border-bottom">
+      <div class="container py-2 d-flex align-items-center justify-content-between">
+        <%= link_to root_path, class: "navbar-brand d-flex align-items-center text-success font-weight-bold h4 mb-0" do %>
+          <i class="fas fa-bowl-rice fa-lg mr-2"></i> Yorugohan
+        <% end %>
+      </div>
+    </div>
+
+    <!-- 下段：ナビバー + ハンバーガー -->
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #eaf5ea;">
+      <div class="container">
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse justify-content-center" id="navbarNavDropdown">
+          <ul class="navbar-nav">
+
+            <li class="nav-item mx-2 my-1">
+              <%= link_to dinners_path, class: "btn btn-outline-success btn-sm" do %>
+                <i class="fas fa-utensils"></i> 夜ごはん一覧
+              <% end %>
+            </li>
+
+            <li class="nav-item mx-2 my-1">
+              <%= link_to recipes_path, class: "btn btn-outline-success btn-sm" do %>
+                <i class="fas fa-book-open"></i> レシピ一覧
+              <% end %>
+            </li>
+
+            <li class="nav-item mx-2 my-1">
+              <%= link_to "#", class: "btn btn-outline-secondary btn-sm disabled" do %>
+                <i class="fas fa-search"></i> 検索（準備中）
+              <% end %>
+            </li>
+
+            <% if user_signed_in? %>
+              <li class="nav-item mx-2 my-1">
+                <%= link_to user_path(current_user), class: "btn btn-outline-success btn-sm" do %>
+                  <i class="fas fa-user"></i> マイページ
+                <% end %>
+              </li>
+
+              <li class="nav-item mx-2 my-1">
+                <%= link_to destroy_user_session_path, method: :delete, class: "btn btn-outline-danger btn-sm" do %>
+                  <i class="fas fa-sign-out-alt"></i> ログアウト
+                <% end %>
+              </li>
+
+            <% else %>
+              <li class="nav-item mx-2 my-1">
+                <%= link_to new_user_registration_path, class: "btn btn-outline-success btn-sm" do %>
+                  <i class="fas fa-user-plus"></i> 新規登録
+                <% end %>
+              </li>
+
+              <li class="nav-item mx-2 my-1">
+                <%= link_to new_user_session_path, class: "btn btn-success btn-sm text-white" do %>
+                  <i class="fas fa-sign-in-alt"></i> ログイン
+                <% end %>
+              </li>
+            <% end %>
+
+          </ul>
+        </div>
+
+      </div>
+    </nav>
+
+  </header>
+
+
+    <main class="container my-5">
       <%= yield %>
     </main>
+
   </body>
 </html>

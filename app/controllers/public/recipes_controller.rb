@@ -25,7 +25,7 @@ class Public::RecipesController < ApplicationController
   def edit
   end
 
-  def update
+ def update
     if @recipe.update(recipe_params)
       redirect_to recipe_path(@recipe), notice: 'レシピを更新しました'
     else
@@ -43,7 +43,7 @@ class Public::RecipesController < ApplicationController
   def set_recipe
     @recipe = Recipe.find(params[:id])
   end
-  
+   
   def correct_user
     unless @recipe.user == current_user
       redirect_to recipes_path, alert: "他の人のレシピは編集できません"

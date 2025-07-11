@@ -20,7 +20,11 @@
       日常に寄り添った、ほんとうの夕食風景を<br>日々の暮らしを見せ合って、つながりませんか？
     </p>
 
-    <%= link_to "投稿をはじめる", dinners_path, class: "btn btn-success btn-lg px-4", style: "background-color: #a8d5a2; border-color: #a8d5a2;" %>
-
+    <% if user_signed_in? %>
+      <%= link_to "投稿をはじめる", dinners_path, class: "btn btn-success btn-lg px-4", style: "background-color: #a8d5a2; border-color: #a8d5a2;" %>
+    <% else %>
+      <%= link_to "まずはログイン", new_user_session_path, class: "btn btn-outline-success btn-lg px-4" %>
+    <% end %>
+  
   </div>
 </div>

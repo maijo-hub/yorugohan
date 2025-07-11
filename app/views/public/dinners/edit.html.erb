@@ -1,48 +1,63 @@
-<h1>投稿を編集する</h1>
+<div class="container my-5">
+  <h1 class="mb-4 text-center text-success">夜ごはんの投稿を編集しましょう</h1>
 
-<% if @dinner.errors.any? %>
-  <div class="error-messages">
-    <h2><%= pluralize(@dinner.errors.count, "件のエラー") %>が発生しています:</h2>
-    <ul>
-      <% @dinner.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-    </ul>
-  </div>
-<% end %>
+  <% if @dinner.errors.any? %>
+    <div class="alert alert-danger">
+      <h4><%= pluralize(@dinner.errors.count, "エラー") %>があります。ご確認ください。</h4>
+      <ul>
+        <% @dinner.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
 
-<% if @dinner.image.attached? %>
-  <p>現在の画像：</p>
-  <%= image_tag @dinner.image.variant(resize_to_limit: [300, 300]) %>
-<% end %>
-
-<%= form_with model: @dinner, local: true do |f| %>
-  <p>
-    <%= f.label :image, "新しい画像を選ぶ" %><br>
-    <%= f.file_field :image %>
-  </p>
-
-  <p>
-    <%= f.label :title %><br>
-    <%= f.text_field :title %>
-  </p>
-
-  <p>
-    <%= f.label :body %><br>
-    <%= f.text_area :body %>
-  </p>
-
-  <p>
-    <%= f.label :recipe_ids, "紐づけるレシピを選ぶ" %><br>
-    <% @my_recipes.each do |recipe| %>
-      <%= check_box_tag "dinner[recipe_ids][]", recipe.id, @dinner.recipes.include?(recipe), id: "recipe_#{recipe.id}" %>
-      <%= label_tag "recipe_#{recipe.id}", recipe.title %><br>
+  <div class="row">
+    <% if @dinner.image.attached? %>
+      <div class="col-md-6 mb-4 text-center">
+        <p class="mb-2 font-weight-bold">今の画像はこちらです</p>
+        <%= image_tag @dinner.image.variant(resize_to_limit: [400, 400]), class: "img-fluid rounded shadow-sm" %>
+      </div>
     <% end %>
-  </p>
 
-  <p>
-    <%= f.submit "更新する" %>
-  </p>
-<% end %>
+    <div class="<%= @dinner.image.attached? ? 'col-md-6' : 'col-12' %>">
+      <%= form_with model: @dinner, local: true do |f| %>
+        <div class="form-group">
+          <%= f.label :image, "新しい画像をアップロード（必要な場合だけでOKです）", class: "font-weight-bold" %>
+          <%= f.file_field :image, class: "form-control-file" %>
+        </div>
 
-<%= link_to '戻る', dinner_path(@dinner) %>
+        <div class="form-group">
+          <%= f.label :title, "夜ごはんのタイトルを入力してください", class: "font-weight-bold" %>
+          <%= f.text_field :title, class: "form-control", placeholder: "例）ヘルシーチキンの照り焼き" %>
+          <small class="form-text text-muted">タイトルは必須です</small>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :body, "夜ごはんの簡単な説明（20〜30文字くらい）", class: "font-weight-bold" %>
+          <%= f.text_area :body, rows: 3, class: "form-control", placeholder: "例）家族みんなが大好きなチキンの照り焼きです" %>
+          <small class="form-text text-muted">説明は任意ですが、あったほうが親切です</small>
+        </div>
+
+        <div class="form-group">
+          <p class="font-weight-bold mb-2">紐づけたいレシピを選んでください</p>
+          <% if @my_recipes.present? %>
+            <% @my_recipes.each do |recipe| %>
+              <div class="form-check">
+                <%= check_box_tag "dinner[recipe_ids][]", recipe.id, @dinner.recipes.include?(recipe), id: "recipe_#{recipe.id}", class: "form-check-input" %>
+                <%= label_tag "recipe_#{recipe.id}", recipe.title, class: "form-check-label" %>
+              </div>
+            <% end %>
+            <small class="form-text text-muted">レシピがなければスキップしてもOKです</small>
+          <% else %>
+            <p class="text-muted">まだレシピがありません。先にレシピを投稿しましょう。</p>
+          <% end %>
+        </div>
+
+        <button type="submit" class="btn btn-success btn-block mt-4">更新する</button>
+      <% end %>
+
+      <%= link_to '戻る', dinner_path(@dinner), class: "btn btn-link mt-3 d-block text-center" %>
+    </div>
+  </div>
+</div>

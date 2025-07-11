@@ -34,6 +34,4 @@
 <hr>
 
 <h2>投稿済みレシピ</h2>
-<% @recipes.each do |recipe| %>
   <%= render partial: 'recipe', collection: @recipes, as: :recipe %>
-<% end %>
