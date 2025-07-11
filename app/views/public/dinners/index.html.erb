@@ -1,48 +1,70 @@
-<h1>夜ごはん一覧</h1>
+<div class="container my-5">
+  <div class="row">
 
-<h2>夜ごはん新規投稿</h2>
+    <!-- 新規投稿フォーム（左カラム） -->
+    <section class="col-12 col-md-5 mb-4">
+      <h2 class="text-success mb-4">
+        <i class="fas fa-plus-circle"></i> かんたん夜ごはん投稿
+      </h2>
 
-<% if @dinner.errors.any? %>
-  <div style="color: red;">
-    <h3>エラーがあります：</h3>
-    <ul>
-      <% @dinner.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+      <% if @dinner.errors.any? %>
+        <div class="alert alert-danger">
+          <h5><i class="fas fa-exclamation-triangle"></i> 入力に問題があります：</h5>
+          <ul class="mb-0">
+            <% @dinner.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
       <% end %>
-    </ul>
+
+      <%= form_with model: @dinner, local: true do |f| %>
+        <div class="form-group">
+          <%= f.label :title, "夜ごはんのタイトル", class: "font-weight-bold" %>
+          <%= f.text_field :title, class: "form-control", placeholder: "例：ヘルシー豆腐ステーキ" %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :body, "かんたんな説明（20〜30文字程度）", class: "font-weight-bold" %>
+          <%= f.text_area :body, class: "form-control", rows: 3, placeholder: "例：お豆腐でヘルシーに仕上げました。" %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :image, "写真（あれば）", class: "font-weight-bold" %>
+          <%= f.file_field :image, class: "form-control-file" %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :recipe_ids, "関連するレシピを選択（複数OK）", class: "font-weight-bold" %>
+          <div class="ml-3">
+            <%= f.collection_check_boxes :recipe_ids, @my_recipes, :id, :title do |cb| %>
+              <div class="form-check">
+                <%= cb.check_box(class: "form-check-input") %>
+                <%= cb.label(class: "form-check-label") %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+
+        <%= f.submit "投稿する", class: "btn btn-success btn-block" %>
+      <% end %>
+    </section>
+
+    <!-- 投稿一覧（右カラム） -->
+    <section class="col-12 col-md-7">
+      <h2 class="text-success mb-4">
+        <i class="fas fa-list"></i> みんなの夜ごはん投稿一覧
+      </h2>
+
+      <% if @dinners.any? %>
+        <% @dinners.each do |dinner| %>
+          <%= render partial: "dinner", locals: { dinner: dinner } %>
+          <hr>
+        <% end %>
+      <% else %>
+        <p class="text-muted">まだ投稿がありません。あなたの夜ごはんを教えてくださいね！</p>
+      <% end %>
+    </section>
+
   </div>
-<% end %>
-
-<%= form_with model: @dinner, local: true do |f| %>
-  <p>
-    <%= f.label :title, "タイトル" %><br>
-    <%= f.text_field :title %>
-  </p>
-
-  <p>
-    <%= f.label :body, "本文" %><br>
-    <%= f.text_area :body %>
-  </p>
-
-  <p>
-    <%= f.label :image, "画像" %><br>
-    <%= f.file_field :image %>
-  </p>
-
-  <p>
-  <%= f.label :recipe_ids, "レシピ（複数選択可）" %><br>
-  <%= f.collection_check_boxes :recipe_ids, @my_recipes, :id, :title %>
-</p>
-
-  <%= f.submit "投稿する" %>
-<% end %>
-
-
-<hr>
-
-<h2>投稿一覧</h2>
-
-<% @dinners.each do |dinner| %>
-   <%= render partial: "dinner", locals: { dinner: dinner } %>
-  <hr>
-<% end %>
+</div>
