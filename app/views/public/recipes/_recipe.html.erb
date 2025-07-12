@@ -1,23 +1,37 @@
-<div class="recipe-card">
+<div class="card mb-4 shadow-sm">
   <% if recipe.image.attached? %>
-    <%= image_tag recipe.image.variant(resize_to_limit: [300, 300]) %>
+    <%= image_tag recipe.image.variant(resize_to_limit: [600, 400]), class: "card-img-top rounded-top" %>
   <% end %>
-  
-  <h3><%= link_to recipe.title, recipe_path(recipe) %></h3>
-  <p><%= simple_format(recipe.description.truncate(100)) %></p>
-  
-  <small>
-    投稿者:
-    <% if recipe.user.present? %>
-      <% if user_signed_in? && current_user == recipe.user %>
-        <%= link_to recipe.user.username, mypage_path %>
-      <% else %>
-        <%= link_to recipe.user.username, user_path(recipe.user) %>
-      <% end %>
-    <% else %>
-      <span>不明なユーザー</span>
-    <% end %>
 
-    投稿日: <%= recipe.created_at.strftime("%Y年%m月%d日") %>
-  </small>
+  <div class="card-body">
+    <h5 class="card-title">
+      <i class="fas fa-book text-success mr-1"></i>
+      <%= link_to recipe.title, recipe_path(recipe), class: "text-success font-weight-bold text-decoration-none" %>
+    </h5>
+
+    <p class="card-text text-muted">
+      <i class="fas fa-align-left mr-1"></i>
+      <%= simple_format(recipe.description.truncate(100)) %>
+    </p>
+
+    <div class="d-flex justify-content-between align-items-center mt-3">
+      <div class="text-muted small">
+        <i class="fas fa-user mr-1"></i>
+        投稿者：
+        <% if recipe.user.present? %>
+          <% if user_signed_in? && current_user == recipe.user %>
+            <%= link_to recipe.user.username, mypage_path, class: "text-success text-decoration-none" %>
+          <% else %>
+            <%= link_to recipe.user.username, user_path(recipe.user), class: "text-success text-decoration-none" %>
+          <% end %>
+        <% else %>
+          <span class="text-secondary">不明なユーザー</span>
+        <% end %>
+        <br>
+        <i class="fas fa-calendar-alt mr-1"></i>
+        投稿日：<%= recipe.created_at.strftime("%Y年%m月%d日") %>
+      </div>
+
+    </div>
+  </div>
 </div>

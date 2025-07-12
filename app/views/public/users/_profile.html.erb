@@ -1,31 +1,47 @@
-<h1><%= user.username %>さんのページ</h1>
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-10">
 
-<p><strong>メールアドレス：</strong> <%= user.email %></p>
+      <h1 class="display-4 text-success mb-4">
+        <i class="fas fa-user-circle fa-lg mr-2"></i><%= user.username %>さんのマイページ
+      </h1>
 
-<p><strong>自己紹介文：</strong><br>
-<%= simple_format(user.profile.presence || "自己紹介はまだありません") %></p>
+      <div class="card mb-4 shadow-sm">
+        <div class="card-body">
+           <p>
+            <i class="fas fa-comment-dots text-success mr-2"></i>
+            <strong>自己紹介：</strong><br>
+            <span class="text-muted">
+              <%= simple_format(user.profile.presence || "まだ自己紹介はありません。") %>
+            </span>
+          </p>
 
-<% if user_signed_in? && current_user == user %>
-  <%= link_to 'プロフィール編集', edit_user_path(user), class: 'btn' %>
-  <%= link_to '退会する', confirm_withdrawal_user_path(user), class: 'btn', method: :get %>
-<% end %>
+          <% if user_signed_in? && current_user == user %>
+            <div class="mt-4 d-flex flex-wrap gap-2">
+              <%= link_to edit_user_path(user), class: 'btn btn-outline-success mr-2 mb-2' do %>
+                <i class="fas fa-edit"></i> プロフィールを編集
+              <% end %>
+              <%= link_to confirm_withdrawal_user_path(user), method: :get, class: 'btn btn-outline-danger mb-2' do %>
+                <i class="fas fa-user-slash"></i> 退会する
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      </div>
 
-<hr>
+      <h2 class="h4 text-success mb-3">
+        <i class="fas fa-utensils"></i> あなたの夜ごはん投稿
+      </h2>
 
-<h2>投稿一覧</h2>
-
-<% if dinners.any? %>
-  <% dinners.each do |dinner| %>
-    <div>
-      <% if dinner.image.attached? %>
-        <%= image_tag dinner.image.variant(resize_to_limit: [300, 300]) %><br>
+      <% if dinners.any? %>
+        <div class="row">
+          <%= render partial: "public/dinners/dinner", collection: dinners, as: :dinner %>
+        </div>
+      <% else %>
+        <div class="alert alert-light text-muted">
+          <i class="fas fa-info-circle"></i> まだ夜ごはんの投稿がありません。
+        </div>
       <% end %>
-      <strong><%= link_to dinner.title, dinner_path(dinner) %></strong><br>
-      <%= simple_format(dinner.body) %><br>
-      <small>投稿日時: <%= dinner.created_at.strftime("%Y/%m/%d %H:%M") %></small>
     </div>
-    <hr>
-  <% end %>
-<% else %>
-  <p>投稿がありません。</p>
-<% end %>
+  </div>
+</div>

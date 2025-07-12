@@ -1,37 +1,60 @@
-<h1>レシピ一覧</h1>
+<div class="container my-5">
+  <h1 class="display-4 text-success mb-4">
+    <i class="fas fa-book-open"></i> みんなのレシピ
+  </h1>
 
-<h2>新規レシピ投稿</h2>
+  <div class="row">
+    <!-- 左：新規投稿フォーム -->
+    <div class="col-12 col-md-5 mb-4">
+      <div class="card shadow-sm">
+        <div class="card-header bg-success text-white">
+          <i class="fas fa-plus-circle"></i> 新しくレシピを投稿する
+        </div>
 
-<% if @recipe.errors.any? %>
-  <div style="color: red;">
-    <ul>
-      <% @recipe.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
+        <div class="card-body">
+          <% if @recipe.errors.any? %>
+            <div class="alert alert-danger">
+              <ul class="mb-0">
+                <% @recipe.errors.full_messages.each do |msg| %>
+                  <li><i class="fas fa-exclamation-circle"></i> <%= msg %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+
+          <%= form_with model: @recipe, local: true do |f| %>
+            <div class="form-group">
+              <%= f.label :title, "レシピのタイトル（例：カレーライス）", class: "font-weight-bold" %>
+              <%= f.text_field :title, class: "form-control", placeholder: "料理名を入力してください" %>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :description, "材料や手順の説明", class: "font-weight-bold" %>
+              <%= f.text_area :description, class: "form-control", placeholder: "材料・手順などを詳しく書いてね", rows: 4 %>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :image, "写真（あればぜひ！）", class: "font-weight-bold" %>
+              <%= f.file_field :image, class: "form-control-file" %>
+            </div>
+
+            <%= f.submit "レシピを投稿する", class: "btn btn-success btn-block" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <!-- 右：レシピ一覧 -->
+    <div class="col-12 col-md-7">
+      <h2 class="h4 mb-3 text-success">
+        <i class="fas fa-list-ul"></i> 投稿されたレシピ一覧
+      </h2>
+
+      <% if @recipes.any? %>
+        <%= render partial: 'recipe', collection: @recipes, as: :recipe %>
+      <% else %>
+        <p class="text-muted">まだレシピが投稿されていません。ぜひ、あなたのレシピを教えてください！</p>
       <% end %>
-    </ul>
+    </div>
   </div>
-<% end %>
-
-<%= form_with model: @recipe, local: true do |f| %>
-  <p>
-    <%= f.label :title, "レシピタイトル" %><br>
-    <%= f.text_field :title %>
-  </p>
-
-  <p>
-    <%= f.label :description, "手順・説明文" %><br>
-    <%= f.text_area :description %>
-  </p>
-
-  <p>
-    <%= f.label :image, "画像" %><br>
-    <%= f.file_field :image %>
-  </p>
-
-  <p><%= f.submit "投稿する" %></p>
-<% end %>
-
-<hr>
-
-<h2>投稿済みレシピ</h2>
-  <%= render partial: 'recipe', collection: @recipes, as: :recipe %>
+</div>

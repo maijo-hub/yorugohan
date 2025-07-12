@@ -1,41 +1,43 @@
-<div class="card mb-4 shadow-sm">
-  <% if dinner.image.attached? %>
-    <%= image_tag dinner.image.variant(resize_to_limit: [600, 400]), class: "card-img-top" %>
-  <% end %>
+<div class="col-12 col-md-6 mb-4">
+  <div class="card h-100 shadow-sm">
+    <% if dinner.image.attached? %>
+      <%= image_tag dinner.image.variant(resize_to_limit: [600, 400]), class: "card-img-top" %>
+    <% end %>
 
-  <div class="card-body">
-    <h5 class="card-title">
-    <%= link_to dinner.title.presence || "タイトルなし", dinner_path(dinner), class: "text-success font-weight-bold text-decoration-none" %>
-    </h5>
+    <div class="card-body">
+      <h5 class="card-title">
+      <%= link_to dinner.title.presence || "タイトルなし", dinner_path(dinner), class: "text-success font-weight-bold text-decoration-none" %>
+      </h5>
 
 
-    <p class="card-text text-muted">
-      <%= simple_format(dinner.body.presence || "説明はありません。") %>
-    </p>
+      <p class="card-text text-muted">
+        <%= simple_format(dinner.body.presence || "説明はありません。") %>
+      </p>
 
-    <p class="mb-2">
-      <i class="fas fa-utensils text-success"></i> <strong>関連レシピ：</strong>
-      <% if dinner.recipes.any? %>
-        <% dinner.recipes.each_with_index do |recipe, index| %>
-          <%= link_to recipe.title, recipe_path(recipe), class: "badge badge-pill badge-success mx-1" %>
-        <% end %>
-      <% else %>
-        <span class="text-muted">なし</span>
-      <% end %>
-    </p>
-
-    <ul class="list-unstyled small text-muted mb-0">
-      <li>
-        <i class="fas fa-user"></i>
-        <% if current_user == dinner.user %>
-          <%= link_to dinner.user.username, user_path(current_user), class: "text-success text-decoration-none" %>
+      <p class="mb-2">
+        <i class="fas fa-utensils text-success"></i> <strong>関連レシピ：</strong>
+        <% if dinner.recipes.any? %>
+          <% dinner.recipes.each_with_index do |recipe, index| %>
+            <%= link_to recipe.title, recipe_path(recipe), class: "badge badge-pill badge-success mx-1" %>
+          <% end %>
         <% else %>
-           <%= link_to dinner.user.username, user_path(dinner.user), class:"ttext-success text-decoration-none" %>
+          <span class="text-muted">なし</span>
         <% end %>
-      </li>
-      <li>
-        <i class="fas fa-clock"></i> <%= dinner.created_at.strftime("%Y年%m月%d日") %>
-      </li>
-    </ul>
+      </p>
+
+      <ul class="list-unstyled small text-muted mb-0">
+        <li>
+          <i class="fas fa-user"></i>
+          <% if current_user == dinner.user %>
+            <%= link_to dinner.user.username, user_path(current_user), class: "text-success text-decoration-none" %>
+          <% else %>
+            <%= link_to dinner.user.username, user_path(dinner.user), class:"ttext-success text-decoration-none" %>
+          <% end %>
+        </li>
+        <li>
+          <i class="fas fa-clock"></i> <%= dinner.created_at.strftime("%Y年%m月%d日") %>
+        </li>
+      </ul>
+    </div>
   </div>
 </div>

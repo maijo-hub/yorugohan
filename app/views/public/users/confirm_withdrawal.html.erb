@@ -1,5 +1,30 @@
-<h1>退会確認</h1>
-<p>本当に退会しますか？</p>
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-8 col-lg-6">
 
-<%= link_to "退会しない", user_path(@user), class: "btn btn-secondary" %>
-<%= button_to "退会する", withdraw_user_path(@user), method: :patch, data: { confirm: "本当に退会しますか？" }, class: "btn btn-danger" %>
+      <div class="card shadow-sm border-success">
+        <div class="card-header bg-success text-white text-center">
+          <h1><i class="fas fa-user-times mr-2"></i> 退会のご確認</h1>
+        </div>
+        <div class="card-body text-center">
+          <p class="lead mb-4">
+            <i class="fas fa-exclamation-triangle text-warning mr-2"></i>
+            本当にアカウントを退会されますか？<br>
+            一度退会すると、すべての投稿や情報が削除されます。ご注意ください。
+          </p>
+
+          <div class="d-flex justify-content-around flex-wrap">
+            <%= link_to user_path(@user), class: "btn btn-outline-secondary btn-lg mb-2 text-decoration-none" do %>
+              <i class="fas fa-undo-alt mr-1"></i> やっぱり退会しない
+            <% end %>
+
+            <%= button_to withdraw_user_path(@user), method: :patch, data: { confirm: "本当に退会しますか？" }, class: "btn btn-danger btn-lg mb-2" do %>
+              <i class="fas fa-user-slash mr-1"></i> 退会する
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
