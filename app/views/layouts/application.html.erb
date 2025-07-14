@@ -27,64 +27,63 @@
     <!-- 下段：ナビバー + ハンバーガー -->
     <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #eaf5ea;">
       <div class="container">
-
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown">
           <span class="navbar-toggler-icon"></span>
         </button>
-
+    
         <div class="collapse navbar-collapse justify-content-center" id="navbarNavDropdown">
           <ul class="navbar-nav">
-
-            <li class="nav-item mx-2 my-1">
-              <%= link_to dinners_path, class: "btn btn-outline-success btn-sm" do %>
-                <i class="fas fa-utensils"></i> 夜ごはん一覧
-              <% end %>
-            </li>
-
-            <li class="nav-item mx-2 my-1">
-              <%= link_to recipes_path, class: "btn btn-outline-success btn-sm" do %>
-                <i class="fas fa-book-open"></i> レシピ一覧
-              <% end %>
-            </li>
-
-            <li class="nav-item mx-2 my-1">
-              <%= link_to "#", class: "btn btn-outline-secondary btn-sm disabled" do %>
-                <i class="fas fa-search"></i> 検索（準備中）
-              <% end %>
-            </li>
-
+    
             <% if user_signed_in? %>
+              <li class="nav-item mx-2 my-1">
+                <%= link_to dinners_path, class: "btn btn-outline-success btn-sm" do %>
+                  <i class="fas fa-utensils"></i> 夜ごはん一覧
+                <% end %>
+              </li>
+    
+              <li class="nav-item mx-2 my-1">
+                <%= link_to recipes_path, class: "btn btn-outline-success btn-sm" do %>
+                  <i class="fas fa-book-open"></i> レシピ一覧
+                <% end %>
+              </li>
+    
+              <li class="nav-item mx-2 my-1">
+                <%= link_to "#", class: "btn btn-outline-secondary btn-sm disabled" do %>
+                  <i class="fas fa-search"></i> 検索（準備中）
+                <% end %>
+              </li>
+    
               <li class="nav-item mx-2 my-1">
                 <%= link_to user_path(current_user), class: "btn btn-outline-success btn-sm" do %>
                   <i class="fas fa-user"></i> マイページ
                 <% end %>
               </li>
-
+    
               <li class="nav-item mx-2 my-1">
                 <%= link_to destroy_user_session_path, method: :delete, class: "btn btn-outline-danger btn-sm" do %>
                   <i class="fas fa-sign-out-alt"></i> ログアウト
                 <% end %>
               </li>
-
+    
             <% else %>
               <li class="nav-item mx-2 my-1">
                 <%= link_to new_user_registration_path, class: "btn btn-outline-success btn-sm" do %>
                   <i class="fas fa-user-plus"></i> 新規登録
                 <% end %>
               </li>
-
+    
               <li class="nav-item mx-2 my-1">
                 <%= link_to new_user_session_path, class: "btn btn-success btn-sm text-white" do %>
                   <i class="fas fa-sign-in-alt"></i> ログイン
                 <% end %>
               </li>
             <% end %>
-
+    
           </ul>
         </div>
-
       </div>
     </nav>
+    
 
   </header>
 
