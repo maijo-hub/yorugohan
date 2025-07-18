@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-    # 管理者
+  # 管理者
   devise_for :admin, skip: [:registrations, :password], controllers: {
     sessions: 'admin/sessions'
   }
@@ -20,6 +20,9 @@ Rails.application.routes.draw do
 
     # 夜ごはん
     resources :dinners, only: [:index, :show, :new, :create, :edit, :update, :destroy]
+
+    # 検索
+    get 'search', to: 'searches#search', as: 'public_search'
 
     # ユーザー関連
     get '/mypage', to: 'users#mypage', as: 'mypage'

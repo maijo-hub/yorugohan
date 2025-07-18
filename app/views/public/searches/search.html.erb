@@ -1,0 +1,76 @@
+<div class="container my-5">
+  <h2 class="text-center text-success mb-5">
+    <i class="fas fa-search"></i> 検索結果
+  </h2>
+
+  <% if @target == "user" %>
+    <% if @users.present? %>
+      <div class="row justify-content-center">
+        <% @users.each do |user| %>
+          <div class="col-md-6 mb-3">
+            <div class="card shadow-sm border-success">
+              <div class="card-body d-flex align-items-center">
+                <i class="fas fa-user-circle fa-2x text-success mr-3"></i>
+                <div>
+                  <h5 class="card-title mb-0">
+                    <%= link_to user.username, user_path(user), class: "text-dark" %>
+                  </h5>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="alert alert-warning text-center">
+        <i class="fas fa-exclamation-circle"></i> 該当するユーザーは見つかりませんでした。
+      </div>
+    <% end %>
+
+  <% elsif @target == "post" %>
+    <% if @recipes.present? %>
+      <h4 class="text-success mt-4">
+        <i class="fas fa-book-open"></i> レシピ
+      </h4>
+      <div class="row">
+        <% @recipes.each do |recipe| %>
+          <div class="col-md-6 mb-3">
+            <div class="card border-left-success shadow-sm">
+              <div class="card-body">
+                <h5 class="card-title">
+                  <%= link_to recipe.title, recipe_path(recipe), class: "text-success" %>
+                </h5>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+
+    <% if @dinners.present? %>
+      <h4 class="text-success mt-4">
+        <i class="fas fa-utensils"></i> 夜ごはん
+      </h4>
+      <div class="row">
+        <% @dinners.each do |dinner| %>
+          <div class="col-md-6 mb-3">
+            <div class="card border-left-success shadow-sm">
+              <div class="card-body">
+                <h5 class="card-title">
+                  <%= link_to dinner.title, dinner_path(dinner), class: "text-success" %>
+                </h5>
+                <p class="card-text text-muted small"><%= truncate(dinner.body, length: 80) %></p>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+
+    <% if @recipes.blank? && @dinners.blank? %>
+      <div class="alert alert-warning text-center">
+        <i class="fas fa-exclamation-circle"></i> 該当する投稿は見つかりませんでした。
+      </div>
+    <% end %>
+  <% end %>
+</div>
