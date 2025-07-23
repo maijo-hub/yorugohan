@@ -27,7 +27,7 @@ class Public::DinnersController < ApplicationController
     end
   
     if @dinner.save
-      redirect_to dinners_path, notice: '投稿が成功しました'
+      redirect_to dinners_path(@dinner), notice: '投稿が成功しました'
     else
       @dinners = Dinner.all.order(created_at: :desc)
       @my_recipes = current_user.recipes
@@ -66,7 +66,7 @@ class Public::DinnersController < ApplicationController
 
   def destroy
     @dinner.destroy
-    redirect_to dinners_path, notice: '削除しました'
+    redirect_to mypage_path, notice: '削除しました'
   end
 
   private

@@ -57,6 +57,12 @@
         <button type="submit" class="btn btn-success btn-block mt-4">更新する</button>
       <% end %>
 
+       <div class="mt-4 text-center">
+          <%= link_to dinner_path(@dinner), method: :delete, data: { confirm: '本当に削除してもよろしいですか？' }, class: 'btn btn-outline-danger' do %>
+            <i class="fas fa-trash-alt"></i> 投稿を削除する
+          <% end %>
+        </div>
+        
       <%= link_to '戻る', dinner_path(@dinner), class: "btn btn-link mt-3 d-block text-center" %>
     </div>
   </div>

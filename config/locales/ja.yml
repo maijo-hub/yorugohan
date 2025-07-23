@@ -5,7 +5,11 @@ ja:
         one: "ユーザー"
         other: "ユーザー"
 
-  attributes:   
+    attributes:
+      dinner:
+        title: "夜ごはんのタイトル"
+        body: "かんたんな説明"
+        image: "画像"
       user:
         email: "Eメール"
         password: "パスワード"
@@ -17,3 +21,4 @@ ja:
         one: "%{resource}を保存できませんでした。%{count}件のエラーがあります。"
         other: "%{resource}を保存できませんでした。%{count}件のエラーがあります。"
       blank: "を入力してください" 
+      taken: "はすでに使用されています"
