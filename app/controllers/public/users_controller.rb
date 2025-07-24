@@ -1,11 +1,12 @@
 class Public::UsersController < ApplicationController
   before_action :authenticate_user!
   before_action :set_user, only: [:show, :edit, :update, :confirm_withdrawal, :withdraw]
+  before_action :ensure_correct_user, only: [:edit, :update, :confirm_withdrawal, :withdraw]
 
   def mypage
     @user = current_user
     @dinners = current_user.dinners.order(created_at: :desc)
-    @recipes = current_user.recipes.order(created_at: :desc) # レシピも表示したい場合
+    @recipes = current_user.recipes.order(created_at: :desc)
   end
   
   def show
@@ -36,6 +37,10 @@ class Public::UsersController < ApplicationController
 
   def set_user
     @user = User.find(params[:id])
+  end
+
+  def ensure_correct_user
+    redirect_to user_path(current_user), alert: "他のユーザーの操作はできません" unless @user == current_user
   end
 
   def user_params

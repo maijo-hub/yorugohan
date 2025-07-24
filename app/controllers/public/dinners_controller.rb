@@ -1,6 +1,7 @@
 class Public::DinnersController < ApplicationController
   before_action :authenticate_user!, except: [:top]
   before_action :set_dinner, only: [:show, :edit, :update, :destroy]
+  before_action :ensure_correct_user, only: [:edit, :update, :destroy]
 
   def top
   end
@@ -74,7 +75,13 @@ class Public::DinnersController < ApplicationController
   def set_dinner
     @dinner = Dinner.find(params[:id])
   end
-
+  
+  def ensure_correct_user
+    unless @dinner.user == current_user
+      redirect_to dinners_path, alert: '他の人の投稿は編集できません'
+    end
+  end
+  
   def dinner_params
     params.require(:dinner).permit(:image, :title, :body, recipe_ids: [])
   end
