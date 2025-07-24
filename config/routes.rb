@@ -18,6 +18,11 @@ Rails.application.routes.draw do
       resources :post_comments, only: [:create, :destroy]
     end
 
+    #コメント
+    resources :dinners do
+      resources :comments, only: [:create, :destroy]
+    end
+
     # 夜ごはん
     resources :dinners, only: [:index, :show, :new, :create, :edit, :update, :destroy]
 

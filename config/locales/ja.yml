@@ -14,7 +14,17 @@ ja:
         email: "Eメール"
         password: "パスワード"
         username: "ユーザー名"
+      comment:
+        content: "コメント内容"
 
+    errors:
+      models:
+        user:
+          attributes:
+            email:
+              taken: "はすでに使われています"
+            username:
+              taken: "はすでに使われています"
   errors:
     messages:
       not_saved:
@@ -22,3 +32,7 @@ ja:
         other: "%{resource}を保存できませんでした。%{count}件のエラーがあります。"
       blank: "を入力してください" 
       taken: "はすでに使用されています"
+  time:
+      formats:
+        short: "%Y/%m/%d %H:%M"
+    

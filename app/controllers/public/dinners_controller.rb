@@ -39,6 +39,8 @@ class Public::DinnersController < ApplicationController
   
 
   def show
+    @comments = @dinner.comments.order(created_at: :desc) # ← コメント一覧（新しい順）
+    @comment = Comment.new                                # ← コメント投稿フォーム用
   end
 
   def edit
