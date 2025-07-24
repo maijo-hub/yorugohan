@@ -28,7 +28,7 @@ class Public::DinnersController < ApplicationController
     end
   
     if @dinner.save
-      redirect_to dinners_path(@dinner), notice: '投稿が成功しました'
+      redirect_to dinner_path(@dinner), notice: '投稿が成功しました'
     else
       @dinners = Dinner.all.order(created_at: :desc)
       @my_recipes = current_user.recipes
@@ -81,7 +81,7 @@ class Public::DinnersController < ApplicationController
       redirect_to dinners_path, alert: '他の人の投稿は編集できません'
     end
   end
-  
+
   def dinner_params
     params.require(:dinner).permit(:image, :title, :body, recipe_ids: [])
   end
