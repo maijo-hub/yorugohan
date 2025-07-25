@@ -39,16 +39,22 @@ class Public::DinnersController < ApplicationController
   
 
   def show
-    @comments = @dinner.comments.order(created_at: :desc) # ← コメント一覧（新しい順）
-    @comment = Comment.new                                # ← コメント投稿フォーム用
-    @dinner = Dinner.find(params[:id])
+    @dinner = Dinner.find(params[:id])  # ← まず@dinnerを定義！
   
-    # ユーザーが退会済みだったら一覧に戻す
+    # 退会済みユーザーの投稿なら一覧に戻す
     if @dinner.user.is_deleted?
       redirect_to dinners_path, alert: "この投稿は表示できません。"
       return
     end
+  
+    @comments = @dinner.comments
+      .left_joins(:user)
+      .where(users: { is_deleted: [false, nil] }) # ← 退会ユーザーのコメントは除外
+      .order(created_at: :desc)
+  
+    @comment = Comment.new  # ← フォーム表示用の空のコメント
   end
+  
 
   def edit
     @my_recipes = current_user.recipes

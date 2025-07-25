@@ -9,7 +9,7 @@ class Dinner < ApplicationRecord
   validates :body, presence: true, length: { maximum: 500 }
   validates :image, presence: true
   scope :with_active_users, -> {
-  joins(:user).where(users: { is_deleted: [false, nil] })
-}
+    joins(:user).where(users: { is_deleted: [false, nil] })
+  }
 
 end
