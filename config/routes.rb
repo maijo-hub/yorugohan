@@ -42,7 +42,7 @@ Rails.application.routes.draw do
   # 管理者用
   namespace :admin do
     get 'dashboards', to: 'dashboards#index'
-    resources :users, only: [:destroy]
+    resources :users, only: [:index, :show, :destroy] # ← index追加！
   end
 
 end

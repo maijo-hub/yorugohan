@@ -7,7 +7,7 @@ class Public::DinnersController < ApplicationController
   end
 
   def index
-    @dinners = Dinner.all.order(created_at: :desc)
+    @dinners = Dinner.with_active_users.order(created_at: :desc)
     @dinner = Dinner.new
     @my_recipes = current_user.recipes
   end
@@ -21,7 +21,7 @@ class Public::DinnersController < ApplicationController
   
     # 他人のレシピが含まれていたらエラー
     if (selected_recipe_ids - my_recipe_ids).any?
-      @dinners = Dinner.all.order(created_at: :desc)
+      @dinners = Dinner.with_active_users.order(created_at: :desc)
       @my_recipes = current_user.recipes
       flash.now[:alert] = '不正なレシピが選択されています。'
       render :index and return
@@ -41,6 +41,13 @@ class Public::DinnersController < ApplicationController
   def show
     @comments = @dinner.comments.order(created_at: :desc) # ← コメント一覧（新しい順）
     @comment = Comment.new                                # ← コメント投稿フォーム用
+    @dinner = Dinner.find(params[:id])
+  
+    # ユーザーが退会済みだったら一覧に戻す
+    if @dinner.user.is_deleted?
+      redirect_to dinners_path, alert: "この投稿は表示できません。"
+      return
+    end
   end
 
   def edit

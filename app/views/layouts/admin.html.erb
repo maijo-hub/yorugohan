@@ -1,18 +1,27 @@
+<!-- app/views/layouts/admin.html.erb -->
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Admin - yorugohan</title>
+  <title>管理者ページ</title>
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
-  <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-  <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  <%= stylesheet_link_tag 'application', media: 'all' %>
+  <%= javascript_pack_tag 'application' %>
 </head>
-<body>
-  <% if admin_signed_in? %>
-    <div class="text-right">
-      <%= link_to 'ログアウト', destroy_admin_session_path, method: :delete %>
+<body class="bg-light">
+
+  <nav class="navbar navbar-dark bg-dark mb-4">
+    <div class="container">
+      <%= link_to '管理者ダッシュボード', admin_users_path, class: 'navbar-brand' %>
+      <div>
+        <%= link_to 'ログアウト', destroy_admin_session_path, method: :delete, class: 'btn btn-sm btn-outline-light' %>
+      </div>
     </div>
-  <% end %>
-  <%= yield %>
+  </nav>
+
+  <div class="container">
+    <%= yield %>
+  </div>
+
 </body>
 </html>

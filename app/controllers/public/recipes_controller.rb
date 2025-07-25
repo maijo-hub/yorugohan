@@ -5,7 +5,7 @@ class Public::RecipesController < ApplicationController
 
   def index
     @recipe = Recipe.new
-    @recipes = Recipe.all.order(created_at: :desc)
+    @recipes = Recipe.with_active_users.order(created_at: :desc)
   end
 
   def create
@@ -13,13 +13,20 @@ class Public::RecipesController < ApplicationController
     if @recipe.save
       redirect_to recipes_path, notice: 'レシピを投稿しました'
     else
-      @recipes = Recipe.all.order(created_at: :desc)
+      @recipes = Recipe.with_active_users.order(created_at: :desc)
       flash.now[:alert] = '投稿に失敗しました。必須項目を確認してください。'
       render :index
     end
   end
 
   def show
+    @recipe = Recipe.find(params[:id])
+    
+    # ユーザーが退会済みだったら一覧に戻す
+    if @recipe.user.is_deleted?
+      redirect_to recipes_path, alert: "この投稿は表示できません。"
+      return
+    end
   end
 
   def edit

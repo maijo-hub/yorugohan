@@ -1,0 +1,36 @@
+<div class="container">
+  <h1 class="mb-4 text-dark">
+    <i class="fas fa-user"></i> <%= @user.username %> さんの詳細
+  </h1>
+
+  <div class="card mb-4 shadow-sm">
+    <div class="card-body">
+      <p><strong><i class="fas fa-id-badge"></i> ユーザー名：</strong> <%= @user.username %></p>
+      <p><strong><i class="fas fa-envelope"></i> メール：</strong> <%= @user.email %></p>
+      <p><strong><i class="fas fa-calendar-alt"></i> 登録日：</strong> <%= l(@user.created_at, format: :short) %></p>
+      <p>
+        <strong><i class="fas fa-user-tag"></i> ステータス：</strong>
+        <% if @user.is_deleted %>
+          <span class="badge badge-secondary">退会済</span>
+        <% else %>
+          <span class="badge badge-success">利用中</span>
+        <% end %>
+      </p>
+    </div>
+  </div>
+
+  <div class="d-flex">
+    <% unless @user.is_deleted %>
+      <%= button_to admin_user_path(@user), method: :delete, data: { confirm: '本当に退会処理を行いますか？' },
+        class: "btn btn-danger" do %>
+        <i class="fas fa-user-slash"></i> 退会処理をする
+      <% end %>
+    <% end %>
+
+    <%= link_to admin_users_path, class: "btn btn-secondary ml-2" do %>
+      <i class="fas fa-arrow-left"></i> 一覧に戻る
+    <% end %>
+  </div>
+
+
+</div>
