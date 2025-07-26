@@ -41,8 +41,11 @@ Rails.application.routes.draw do
 
   # 管理者用
   namespace :admin do
-    get 'dashboards', to: 'dashboards#index'
-    resources :users, only: [:index, :show, :destroy] # ← index追加！
+    resources :users, only: [:index, :show, :destroy] do
+      member do
+        patch :restore  # ← これで /admin/users/:id/restore が使えるようになる
+      end
+    end
   end
 
 end
