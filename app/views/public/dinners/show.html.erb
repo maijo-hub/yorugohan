@@ -21,6 +21,15 @@
             <div class="card-body">
               <p><strong><%= comment.user.username %></strong> さん</p>
               <p><%= comment.content %></p>
+              <p id="commentraty-<%=comment.id %>"></P>
+              <script>
+                    raty(document.querySelector("#commentraty-<%=comment.id %>"),{  
+                      starOn: "<%= asset_path('star-on.png') %>",
+                      starOff: "<%= asset_path('star-off.png') %>",
+                      starHalf: "<%= asset_path('star-half.png') %>",
+                      score: "<%= comment.rating %>",
+                      });
+              </script>
               <p class="text-muted"><%= l(comment.created_at, format: :short) %></p>
 
               <% if comment.user == current_user %>

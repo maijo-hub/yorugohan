@@ -24,6 +24,15 @@
           <span class="text-muted">なし</span>
         <% end %>
       </p>
+      <div id="raty-average" ></div>
+      <script>
+              raty(document.querySelector("#raty-average"),{  
+                starOn: "<%= asset_path('star-on.png') %>",
+                starOff: "<%= asset_path('star-off.png') %>",
+                starHalf: "<%= asset_path('star-half.png') %>",
+                score: "<%= dinner.comments.average(:rating) %>",
+                });
+        </script>
 
       <ul class="list-unstyled small text-muted mb-0">
         <li>
