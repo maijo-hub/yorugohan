@@ -21,6 +21,15 @@
             <div class="card-body">
               <p><strong><%= comment.user.username %></strong> さん</p>
               <p><%= comment.content %></p>
+              <p id="commentraty-<%=comment.id %>"></P>
+              <script>
+                    raty(document.querySelector("#commentraty-<%=comment.id %>"),{  
+                      starOn: "<%= asset_path('star-on.png') %>",
+                      starOff: "<%= asset_path('star-off.png') %>",
+                      starHalf: "<%= asset_path('star-half.png') %>",
+                      score: "<%= comment.rating %>",
+                      });
+              </script>
               <p class="text-muted"><%= l(comment.created_at, format: :short) %></p>
 
               <% if comment.user == current_user %>
@@ -40,7 +49,7 @@
                 <%= f.label :content, "コメント内容" %>
                 <%= f.text_area :content, rows: 3, class: "form-control" %>
               </div>
-
+              <div id="post_raty"></div>
               <div class="text-right mt-2">
                 <%= f.submit "コメントを投稿する", class: "btn btn-success" %>
               </div>
@@ -69,3 +78,14 @@
     </div>
   </div>
 </div>
+<script>
+       let elem = document.querySelector('#post_raty');
+         // scriptファイルをどのidの部分に配置するかを指定
+       let opt = {  
+        starOn: "<%= asset_path('star-on.png') %>",
+        starOff: "<%= asset_path('star-off.png') %>",
+        starHalf: "<%= asset_path('star-half.png') %>",
+        scoreName: 'comment[rating]',
+        };
+      raty(elem,opt);
+</script>
