@@ -1,5 +1,16 @@
 Rails.application.routes.draw do
 
+  namespace :admin do
+    get 'reviews/index'
+    get 'reviews/destroy'
+  end
+  namespace :admin do
+    get 'comments/index'
+    get 'comments/destroy'
+  end
+  namespace :admin do
+    get 'top/index'
+  end
   # 管理者
   devise_for :admin, skip: [:registrations, :password], controllers: {
     sessions: 'admin/sessions'
@@ -41,11 +52,15 @@ Rails.application.routes.draw do
 
   # 管理者用
   namespace :admin do
+    root to: 'top#index'  # ← これで /admin がトップページに
     resources :users, only: [:index, :show, :destroy] do
       member do
-        patch :restore  # ← これで /admin/users/:id/restore が使えるようになる
+        patch :restore
       end
     end
+    resources :comments, only: [:index, :destroy]  # ← コメント管理
+    resources :reviews, only: [:index, :destroy]    # ← レビュー管理
   end
+  
 
 end
