@@ -9,7 +9,6 @@
       <%= link_to dinner.title.presence || "タイトルなし", dinner_path(dinner), class: "text-success font-weight-bold text-decoration-none" %>
       </h5>
 
-
       <p class="card-text text-muted">
         <%= simple_format(dinner.body.presence || "説明はありません。") %>
       </p>

@@ -1,0 +1,43 @@
+<div class="container my-5">
+  <h1 class="mb-4 text-success">
+    <i class="fas fa-tachometer-alt"></i> 管理者ダッシュボード
+  </h1>
+
+  <div class="row">
+    <!-- ユーザー管理 -->
+    <div class="col-md-4 mb-4">
+      <div class="card shadow-sm h-100">
+        <div class="card-body text-center">
+          <i class="fas fa-users fa-3x text-primary mb-3"></i>
+          <h5 class="card-title">ユーザー管理</h5>
+          <p class="card-text">登録ユーザーの一覧・詳細・退会処理など。</p>
+          <%= link_to 'ユーザー管理へ', admin_users_path, class: "btn btn-primary" %>
+        </div>
+      </div>
+    </div>
+
+    <!-- コメント管理 -->
+    <div class="col-md-4 mb-4">
+      <div class="card shadow-sm h-100">
+        <div class="card-body text-center">
+          <i class="fas fa-comments fa-3x text-success mb-3"></i>
+          <h5 class="card-title">コメント管理</h5>
+          <p class="card-text">投稿コメントの確認・削除を行えます。</p>
+          <%= link_to 'コメント管理へ', admin_comments_path, class: "btn btn-success" %>
+        </div>
+      </div>
+    </div>
+
+    <!-- レビュー管理 -->
+    <div class="col-md-4 mb-4">
+      <div class="card shadow-sm h-100">
+        <div class="card-body text-center">
+          <i class="fas fa-star fa-3x text-warning mb-3"></i>
+          <h5 class="card-title">レビュー管理</h5>
+          <p class="card-text">投稿レビューの一覧・削除を行えます。</p>
+          <%= link_to 'レビュー管理へ', admin_reviews_path, class: "btn btn-warning text-white" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

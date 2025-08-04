@@ -17,26 +17,47 @@
 
         <!-- 🔽 コメント一覧表示 -->
         <% @comments.each do |comment| %>
+          <% next if comment.user.is_deleted? %> <!-- 退会ユーザーはスキップ -->
+        
           <div class="card mb-2">
             <div class="card-body">
-              <p><strong><%= comment.user.username %></strong> さん</p>
+        
+              <!-- ユーザー名をリンク化 -->
+              <p>
+                <strong>
+                  <% if current_user == comment.user %>
+                    <%= link_to comment.user.username, user_path(current_user), class: "text-success text-decoration-none" %>
+                  <% else %>
+                    <%= link_to comment.user.username, user_path(comment.user), class: "text-success text-decoration-none" %>
+                  <% end %>
+                </strong> さん
+              </p>
+        
               <p><%= comment.content %></p>
-              <p id="commentraty-<%=comment.id %>"></P>
+        
+              <!-- ★ レビュー評価表示 ★ -->
+              <p id="commentraty-<%= comment.id %>"></p>
               <script>
-                    raty(document.querySelector("#commentraty-<%=comment.id %>"),{  
-                      starOn: "<%= asset_path('star-on.png') %>",
-                      starOff: "<%= asset_path('star-off.png') %>",
-                      starHalf: "<%= asset_path('star-half.png') %>",
-                      score: "<%= comment.rating %>",
-                      });
+                document.addEventListener("DOMContentLoaded", function() {
+                  raty(document.querySelector("#commentraty-<%= comment.id %>"), {
+                    starOn: "<%= asset_path('star-on.png') %>",
+                    starOff: "<%= asset_path('star-off.png') %>",
+                    starHalf: "<%= asset_path('star-half.png') %>",
+                    score: "<%= comment.rating %>",
+                    readOnly: true
+                  });
+                });
               </script>
+        
               <p class="text-muted"><%= l(comment.created_at, format: :short) %></p>
-
+        
+              <!-- 自分のコメントのみ削除可能 -->
               <% if comment.user == current_user %>
                 <%= link_to dinner_comment_path(@dinner, comment), method: :delete, data: { confirm: 'コメントを削除しますか？' }, class: "btn btn-sm btn-outline-danger" do %>
                   <i class="fas fa-trash"></i> 削除
                 <% end %>
               <% end %>
+        
             </div>
           </div>
         <% end %>
@@ -59,7 +80,7 @@
       </div>
       <div class="d-flex flex-wrap justify-content-between mt-4">
 
-        <% if current_user == @dinner.user %>
+        <% if user_signed_in? && current_user == @dinner.user %>
           <%= link_to edit_dinner_path(@dinner), class: 'btn btn-outline-success mb-2' do %>
             <i class="fas fa-edit"></i> 投稿内容を編集する
           <% end %>
