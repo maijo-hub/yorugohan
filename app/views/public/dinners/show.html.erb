@@ -80,7 +80,7 @@
       </div>
       <div class="d-flex flex-wrap justify-content-between mt-4">
 
-        <% if current_user == @dinner.user %>
+        <% if user_signed_in? && current_user == @dinner.user %>
           <%= link_to edit_dinner_path(@dinner), class: 'btn btn-outline-success mb-2' do %>
             <i class="fas fa-edit"></i> 投稿内容を編集する
           <% end %>
