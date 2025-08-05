@@ -1,2 +1,55 @@
-<h1>Admin::Reviews#index</h1>
-<p>Find me in app/views/admin/reviews/index.html.erb</p>
+<div class="container my-5">
+  <h1 class="mb-4 text-primary">
+    <i class="fas fa-star"></i> レビュー管理
+  </h1>
+
+  <% if @comments.any? %>
+    <table class="table table-hover shadow-sm bg-white">
+      <thead class="thead-light">
+        <tr>
+          <th>投稿者</th>
+          <th>対象投稿</th>
+          <th>評価</th>
+          <th>投稿日</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @comments.each do |comment| %>
+          <tr>
+            <td>
+              <% if comment.user.present? && !comment.user.is_deleted %>
+                <%= link_to comment.user.username, admin_user_path(comment.user), class: "text-success" %>
+              <% else %>
+                <span class="text-muted">退会済み</span>
+              <% end %>
+            </td>
+            <td><%= link_to comment.dinner.title, dinner_path(comment.dinner), class: "text-primary" %></td>
+            <td>
+              <p id="commentraty-<%= comment.id %>"></p>
+              <script>
+                document.addEventListener("DOMContentLoaded", function() {
+                  raty(document.querySelector("#commentraty-<%= comment.id %>"), {
+                    starOn: "<%= asset_path('star-on.png') %>",
+                    starOff: "<%= asset_path('star-off.png') %>",
+                    starHalf: "<%= asset_path('star-half.png') %>",
+                    score: "<%= comment.rating %>",
+                    readOnly: true
+                  });
+                });
+              </script>
+            </td>
+            <td><%= l(comment.created_at, format: :short) %></td>
+            <td>
+              <%= link_to admin_review_path(comment), method: :delete, data: { confirm: 'レビューを削除しますか？' }, class: "btn btn-sm btn-outline-danger" do %>
+                <i class="fas fa-trash"></i> 削除
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <p class="text-muted">レビューはまだありません。</p>
+  <% end %>
+</div>
