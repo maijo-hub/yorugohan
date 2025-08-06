@@ -24,6 +24,11 @@
         <% end %>
       </p>
       
+      <%= form_with model: @dinner, url: dinners_path, local: true do |f| %>
+        <%= render 'form', f: f %>  <!-- ← f を渡す -->
+        <%= f.submit '投稿する', class: 'btn btn-primary' %>
+      <% end %>
+      
       <div id="raty-average-<%= dinner.id %>" ></div>
       <script>
               raty(document.querySelector("#raty-average-<%= dinner.id %>"),{  

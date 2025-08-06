@@ -28,6 +28,7 @@ class Public::DinnersController < ApplicationController
     end
   
     if @dinner.save
+      save_tags(@dinner, params[:tag_names])
       redirect_to dinner_path(@dinner), notice: '投稿が成功しました'
     else
       @dinners = Dinner.all.order(created_at: :desc)
@@ -63,7 +64,6 @@ class Public::DinnersController < ApplicationController
   def update
     my_recipe_ids = current_user.recipes.pluck(:id).map(&:to_s)
     selected_recipe_ids = params[:dinner][:recipe_ids].presence || []
-    
     selected_recipe_ids = selected_recipe_ids.reject(&:blank?) 
 
     if (selected_recipe_ids - my_recipe_ids).any?
@@ -72,6 +72,8 @@ class Public::DinnersController < ApplicationController
     end
   
     if @dinner.update(dinner_params)
+      @dinner.dinner_tags.destroy_all  # ← ★既存タグ削除
+      save_tags(@dinner, params[:tag_names])  # ← ★タグ登録
       redirect_to dinner_path(@dinner), notice: '更新しました'
     else
       flash.now[:alert] = "更新に失敗しました。必須項目を確認してください。"
@@ -99,5 +101,19 @@ class Public::DinnersController < ApplicationController
 
   def dinner_params
     params.require(:dinner).permit(:image, :title, :body, recipe_ids: [])
+  end
+
+  def tag_search
+    @tag = Tag.find_by(name: params[:name])
+    @dinners = @tag.dinners.with_active_users.order(created_at: :desc) if @tag
+    render :index
+  end
+  
+  def save_tags(dinner, tag_names)
+    return if tag_names.blank?
+    tag_names.split(',').map(&:strip).uniq.each do |tag_name|
+      tag = Tag.find_or_create_by(name: tag_name)
+      dinner.tags << tag
+    end
   end
 end
