@@ -24,10 +24,12 @@
         <% end %>
       </p>
       
-      <%= form_with model: @dinner, url: dinners_path, local: true do |f| %>
-        <%= render 'form', f: f %>  <!-- ← f を渡す -->
-        <%= f.submit '投稿する', class: 'btn btn-primary' %>
-      <% end %>
+      <p>
+        <strong>タグ：</strong>
+        <% @dinner.tags.each do |tag| %>
+          <%= link_to "##{tag.name}", tag_search_path(tag.name), class: "badge badge-info mr-1" %>
+        <% end %>
+      </p>
       
       <div id="raty-average-<%= dinner.id %>" ></div>
       <script>

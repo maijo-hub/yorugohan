@@ -45,6 +45,8 @@
             <% end %>
           </div>
         </div>
+          
+        <%= render 'form', f: f %>  <!-- ← f を渡す -->
 
         <%= f.submit "投稿する", class: "btn btn-success btn-block" %>
       <% end %>
