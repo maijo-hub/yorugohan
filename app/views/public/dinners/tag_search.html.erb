@@ -1,0 +1,11 @@
+<!-- app/views/public/dinners/tag_search.html.erb -->
+<h2>タグ「<%= @tag_name %>」の投稿一覧</h2>
+
+<% if @dinners.present? %>
+  <% @dinners.each do |dinner| %>
+    <%= render partial: "dinner", locals: { dinner: dinner } %>
+    <hr>
+  <% end %>
+<% else %>
+  <p class="text-muted">タグ「<%= @tag_name %>」に関連する投稿はありません。</p>
+<% end %>

@@ -41,7 +41,7 @@ Rails.application.routes.draw do
     get 'search', to: 'searches#search', as: 'public_search'
     
     #　タグ
-    get 'tags/:name', to: 'public/dinners#tag_search', as: :tag_search
+    get 'tags/:name', to: 'dinners#tag_search', as: 'tag_search'
     
     # ユーザー関連
     get '/mypage', to: 'users#mypage', as: 'mypage'

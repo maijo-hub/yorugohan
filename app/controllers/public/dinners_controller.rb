@@ -105,9 +105,11 @@ class Public::DinnersController < ApplicationController
 
   def tag_search
     @tag = Tag.find_by(name: params[:name])
-    @dinners = @tag.dinners.with_active_users.order(created_at: :desc) if @tag
-    render :index
+    @dinners = @tag.present? ? @tag.dinners.with_active_users.order(created_at: :desc) : []
+    @tag_name = params[:name]
+    render :tag_search
   end
+  
   
   def save_tags(dinner, tag_names)
     return if tag_names.blank?

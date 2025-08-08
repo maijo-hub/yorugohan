@@ -26,9 +26,9 @@
       
       <p>
         <strong>タグ：</strong>
-        <% @dinner.tags.each do |tag| %>
-          <%= link_to "##{tag.name}", tag_search_path(tag.name), class: "badge badge-info mr-1" %>
-        <% end %>
+        <% dinner.tags.each do |tag| %>
+          <%= link_to "##{tag.name}", tag_search_path(tag.name), class: "badge badge-info" %>
+        <% end %>     
       </p>
       
       <div id="raty-average-<%= dinner.id %>" ></div>
