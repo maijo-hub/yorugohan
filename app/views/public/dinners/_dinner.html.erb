@@ -27,7 +27,7 @@
       <p>
         <strong>タグ：</strong>
         <% dinner.tags.each do |tag| %>
-          <%= link_to "##{tag.name}", tag_search_path(tag.name), class: "badge badge-info" %>
+          <%= link_to "##{tag.name}", tag_search_path(tag_id: tag.id), class: "badge badge-info" %>
         <% end %>     
       </p>
       

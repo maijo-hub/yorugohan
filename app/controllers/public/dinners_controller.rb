@@ -7,7 +7,7 @@ class Public::DinnersController < ApplicationController
   end
 
   def index
-    @dinners = Dinner.with_active_users.order(created_at: :desc)
+    @dinners = Dinner.order(created_at: :desc)
     @dinner = Dinner.new
     @my_recipes = current_user.recipes
   end
@@ -87,6 +87,13 @@ class Public::DinnersController < ApplicationController
     redirect_to mypage_path, notice: '削除しました'
   end
 
+  def tag_search
+    @tag = Tag.find(params[:tag_id])
+    @dinners = @tag.present? ? @tag.dinners.order(created_at: :desc) : []
+    @tag_name = @tag.name
+    render :tag_search
+  end
+
   private
 
   def set_dinner
@@ -103,12 +110,7 @@ class Public::DinnersController < ApplicationController
     params.require(:dinner).permit(:image, :title, :body, recipe_ids: [])
   end
 
-  def tag_search
-    @tag = Tag.find_by(name: params[:name])
-    @dinners = @tag.present? ? @tag.dinners.with_active_users.order(created_at: :desc) : []
-    @tag_name = params[:name]
-    render :tag_search
-  end
+  
   
   
   def save_tags(dinner, tag_names)
