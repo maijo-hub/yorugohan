@@ -1,11 +1,50 @@
 <!-- app/views/public/dinners/tag_search.html.erb -->
-<h2>タグ「<%= @tag_name %>」の投稿一覧</h2>
+<div class="container my-5">
+  <!-- タイトル -->
+  <div class="d-flex align-items-center mb-4">
+    <i class="fas fa-tags text-success fa-lg mr-2"></i>
+    <h2 class="mb-0">タグ「<span class="text-success"><%= @tag_name %></span>」の投稿一覧</h2>
+  </div>
 
-<% if @dinners.present? %>
-  <% @dinners.each do |dinner| %>
-    <%= render partial: "dinner", locals: { dinner: dinner } %>
-    <hr>
+  <% if @dinners.present? %>
+    <div class="row">
+      <% @dinners.each do |dinner| %>
+        <div class="col-md-6 mb-4">
+          <div class="card shadow-sm border-0 h-100">
+            <% if dinner.image.attached? %>
+              <%= image_tag dinner.image.variant(resize_to_fill: [600, 400]).processed,
+                  class: "card-img-top rounded-top" %>
+            <% else %>
+              <div class="bg-light d-flex align-items-center justify-content-center"
+                   style="height: 200px;">
+                <i class="fas fa-utensils fa-2x text-muted"></i>
+              </div>
+            <% end %>
+            <div class="card-body">
+              <h5 class="card-title mb-2">
+                <i class="fas fa-utensil-spoon text-success mr-1"></i>
+                <%= link_to dinner.title, dinner_path(dinner), class: "text-dark font-weight-bold" %>
+              </h5>
+              <p class="card-text text-muted mb-2">
+                <small><i class="far fa-clock mr-1"></i><%= l(dinner.created_at, format: :short) %></small>
+              </p>
+              <% if dinner.tags.present? %>
+                <div>
+                  <% dinner.tags.each do |tag| %>
+                    <%= link_to "##{tag.name}", tag_search_path(tag_id: tag.id), class: "badge badge-info" %>
+                  <% end %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="alert alert-light border text-center py-5">
+      <i class="fas fa-info-circle fa-2x text-muted mb-3"></i>
+      <p class="text-muted mb-0">タグ「<%= @tag_name %>」に関連する投稿はありません。</p>
+    </div>
   <% end %>
-<% else %>
-  <p class="text-muted">タグ「<%= @tag_name %>」に関連する投稿はありません。</p>
-<% end %>
+</div>
+
