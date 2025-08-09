@@ -39,7 +39,10 @@ Rails.application.routes.draw do
 
     # 検索
     get 'search', to: 'searches#search', as: 'public_search'
-
+    
+    #　タグ
+    get 'tag_search', to: 'dinners#tag_search', as: 'tag_search'
+    
     # ユーザー関連
     get '/mypage', to: 'users#mypage', as: 'mypage'
     resources :users, only: [:show, :edit, :update] do

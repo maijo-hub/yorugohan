@@ -53,6 +53,8 @@
             <p class="text-muted">まだレシピがありません。先にレシピを投稿しましょう。</p>
           <% end %>
         </div>
+        
+          <%= render 'form', f: f %>  <!-- ← f を渡す -->
 
         <button type="submit" class="btn btn-success btn-block mt-4">更新する</button>
       <% end %>

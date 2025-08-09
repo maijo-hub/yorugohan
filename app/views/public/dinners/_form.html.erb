@@ -1,0 +1,4 @@
+<div class="form-group">
+  <%= f.label :tag_names, "タグ（カンマ区切りで入力）", class: "font-weight-bold" %>
+  <%= text_field_tag :tag_names, @dinner.tags.pluck(:name).join(','), class: "form-control" %>
+</div>

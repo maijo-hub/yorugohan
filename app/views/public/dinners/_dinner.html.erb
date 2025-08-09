@@ -24,6 +24,13 @@
         <% end %>
       </p>
       
+      <p>
+        <strong>タグ：</strong>
+        <% dinner.tags.each do |tag| %>
+          <%= link_to "##{tag.name}", tag_search_path(tag_id: tag.id), class: "badge badge-info" %>
+        <% end %>     
+      </p>
+      
       <div id="raty-average-<%= dinner.id %>" ></div>
       <script>
               raty(document.querySelector("#raty-average-<%= dinner.id %>"),{  

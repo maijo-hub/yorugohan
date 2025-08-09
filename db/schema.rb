@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_08_05_003904) do
+ActiveRecord::Schema.define(version: 2025_08_05_234914) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -72,6 +72,15 @@ ActiveRecord::Schema.define(version: 2025_08_05_003904) do
     t.index ["recipe_id"], name: "index_dinner_recipes_on_recipe_id"
   end
 
+  create_table "dinner_tags", force: :cascade do |t|
+    t.integer "dinner_id", null: false
+    t.integer "tag_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["dinner_id"], name: "index_dinner_tags_on_dinner_id"
+    t.index ["tag_id"], name: "index_dinner_tags_on_tag_id"
+  end
+
   create_table "dinners", force: :cascade do |t|
     t.string "title"
     t.string "body"
@@ -111,6 +120,12 @@ ActiveRecord::Schema.define(version: 2025_08_05_003904) do
     t.index ["user_id"], name: "index_reviews_on_user_id"
   end
 
+  create_table "tags", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -132,6 +147,8 @@ ActiveRecord::Schema.define(version: 2025_08_05_003904) do
   add_foreign_key "comments", "users"
   add_foreign_key "dinner_recipes", "dinners"
   add_foreign_key "dinner_recipes", "recipes"
+  add_foreign_key "dinner_tags", "dinners"
+  add_foreign_key "dinner_tags", "tags"
   add_foreign_key "post_images", "users"
   add_foreign_key "recipes", "users"
   add_foreign_key "reviews", "dinners"
