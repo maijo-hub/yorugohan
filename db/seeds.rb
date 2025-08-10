@@ -5,3 +5,23 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+Admin.create!(email: "", password: "")
+
+user_attributes = [
+  {
+    name: "yamada",
+    profile: "よろしくお願いします"
+  },
+  {
+    name: "tanaka"
+  }
+]
+
+user_attributes.each.with_index(1) do |attributes, i|
+  user = User.new(attributes)
+  user.email = "user_#{i}@test.com"
+  user.password = "password"
+  user.save!
+end
+
