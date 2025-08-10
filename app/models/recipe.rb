@@ -7,6 +7,6 @@ class Recipe < ApplicationRecord
   validates :title, presence: { message: 'タイトルは必須です' }, length: { maximum: 100, message: 'タイトルは100文字以内で入力してください' }
   
   scope :with_active_users, -> {
-    joins(:user).where(users: { is_deleted: [false, nil] })
+    joins(:user).where(users: { is_deleted: nil })
   }
 end
