@@ -1,4 +1,6 @@
 class Dinner < ApplicationRecord
+  scope :active, -> { includes(:user).where('user.is_deleted': false) } 
+  
   belongs_to :user
   has_one_attached :image
   has_many :dinner_recipes, dependent: :destroy

@@ -7,7 +7,7 @@ class Public::DinnersController < ApplicationController
   end
 
   def index
-    @dinners = Dinner.order(created_at: :desc)
+    @dinners = Dinner.active.order(created_at: :desc)
     @dinner = Dinner.new
     @my_recipes = current_user.recipes
   end
@@ -31,7 +31,7 @@ class Public::DinnersController < ApplicationController
       save_tags(@dinner, params[:tag_names])
       redirect_to dinner_path(@dinner), notice: '投稿が成功しました'
     else
-      @dinners = Dinner.all.order(created_at: :desc)
+      @dinners = Dinner.active.order(created_at: :desc)
       @my_recipes = current_user.recipes
       flash.now[:alert] = '投稿に失敗しました。必須項目を入力してください。'
       render :index
