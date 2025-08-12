@@ -23,30 +23,32 @@
 
       <div class="collapse navbar-collapse" id="adminNavbar">
         <ul class="navbar-nav ml-auto">
-          <!-- ユーザー管理（緑） -->
-          <li class="nav-item">
-            <%= link_to admin_users_path, class: "nav-link text-primary font-weight-bold" do %>
-              <i class="fas fa-users"></i> ユーザー管理
-            <% end %>
-          </li>
-          <!-- コメント管理（青） -->
-          <li class="nav-item">
-            <%= link_to admin_comments_path, class: "nav-link text-success font-weight-bold" do %>
-              <i class="fas fa-comments"></i> コメント管理
-            <% end %>
-          </li>
-          <!-- レビュー管理（オレンジ） -->
-          <li class="nav-item">
-            <%= link_to admin_reviews_path, class: "nav-link text-warning font-weight-bold" do %>
-              <i class="fas fa-star"></i> レビュー管理
-            <% end %>
-          </li>
-          <!-- ログアウト（白） -->
-          <li class="nav-item">
-            <%= link_to destroy_admin_session_path, method: :delete, class: "nav-link text-light font-weight-bold" do %>
-              <i class="fas fa-sign-out-alt"></i> ログアウト
-            <% end %>
-          </li>
+          <% if admin_signed_in? %>
+            <!-- ユーザー管理（緑） -->
+            <li class="nav-item">
+              <%= link_to admin_users_path, class: "nav-link text-primary font-weight-bold" do %>
+                <i class="fas fa-users"></i> ユーザー管理
+              <% end %>
+            </li>
+            <!-- コメント管理（青） -->
+            <li class="nav-item">
+              <%= link_to admin_comments_path, class: "nav-link text-success font-weight-bold" do %>
+                <i class="fas fa-comments"></i> コメント管理
+              <% end %>
+            </li>
+            <!-- レビュー管理（オレンジ） -->
+            <li class="nav-item">
+              <%= link_to admin_reviews_path, class: "nav-link text-warning font-weight-bold" do %>
+                <i class="fas fa-star"></i> レビュー管理
+              <% end %>
+            </li>
+            <!-- ログアウト（白） -->
+            <li class="nav-item">
+              <%= link_to destroy_admin_session_path, method: :delete, class: "nav-link text-light font-weight-bold" do %>
+                <i class="fas fa-sign-out-alt"></i> ログアウト
+              <% end %>
+            </li>
+          <% end %>
         </ul>
       </div>
     </div>
