@@ -56,9 +56,9 @@ ActiveRecord::Schema.define(version: 2025_08_10_121707) do
     t.integer "user_id", null: false
     t.integer "dinner_id", null: false
     t.text "content"
+    t.float "rating"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.float "rating"
     t.index ["dinner_id"], name: "index_comments_on_dinner_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
