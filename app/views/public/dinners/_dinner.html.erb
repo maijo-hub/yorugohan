@@ -38,7 +38,7 @@
                 starOff: "<%= asset_path('star-off.png') %>",
                 starHalf: "<%= asset_path('star-half.png') %>",
                 readOnly: true,
-                score: "<%= dinner.comments.average(:rating) %>",
+                score: "<%= dinner.comments.by_users_not_deleted.average(:rating) %>",
                 });
         </script>
 
