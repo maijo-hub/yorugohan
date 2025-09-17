@@ -51,7 +51,7 @@
       </h2>
 
       <% if @recipes.any? %>
-        <%= render partial: 'recipe', collection: @recipes, as: :recipe %>
+        <%= render partial: "recipe", collection: @recipes, as: :recipe %>
       <% else %>
         <p class="text-muted">まだレシピが投稿されていません。ぜひ、あなたのレシピを教えてください！</p>
       <% end %>
