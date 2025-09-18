@@ -1,7 +1,5 @@
 # 例: app/controllers/admin/users_controller.rb
 class Admin::UsersController < Admin::BaseController
-  layout 'admin'
-  before_action :authenticate_admin!
   def index
     @users = User.all
   end

@@ -1,7 +1,5 @@
-class Admin::CommentsController < ApplicationController
-  layout 'admin'
-  before_action :authenticate_admin!
-
+class Admin::CommentsController < Admin::BaseController
+  
   def index
     @comments = Comment.includes(:user, :dinner).order(created_at: :desc)
   end
