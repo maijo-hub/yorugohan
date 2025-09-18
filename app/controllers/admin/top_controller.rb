@@ -1,7 +1,5 @@
-class Admin::TopController < ApplicationController
-  layout 'admin'
-  before_action :authenticate_admin!
-
+class Admin::TopController < Admin::BaseController
+ 
   def index
     # トップページ表示
   end

@@ -1,46 +1,42 @@
 Rails.application.routes.draw do
-
-  namespace :admin do
-    get 'reviews/index'
-    get 'reviews/destroy'
-  end
-  namespace :admin do
-    get 'comments/index'
-    get 'comments/destroy'
-  end
-  namespace :admin do
-    get 'top/index'
-  end
   # 管理者
   devise_for :admin, skip: [:registrations, :password], controllers: {
     sessions: 'admin/sessions'
   }
+
+  namespace :admin do
+    root to: 'top#index'   # /admin で管理者トップページへ
+
+    resources :users, only: [:index, :show, :destroy] do
+      member do
+        patch :restore
+      end
+    end
+    resources :comments, only: [:index, :destroy]   # コメント管理
+    resources :reviews,  only: [:index, :destroy]   # レビュー管理
+  end
 
   # 一般ユーザー
   scope module: :public do
     devise_for :users
     root to: 'dinners#top'
 
-    resources :recipes, only: [:index, :show, :create, :edit, :update, :destroy]
+    # レシピ（new 以外すべて）
+    resources :recipes, except: [:new]
 
-    # 投稿関連
-    resources :post_images, only: [:new, :create, :index, :show, :destroy] do
+    # 投稿画像（edit, update 以外すべて）
+    resources :post_images, except: [:edit, :update] do
       resource :favorites, only: [:create, :destroy]
       resources :post_comments, only: [:create, :destroy]
     end
 
-    #コメント
+    # 夜ごはん（コメント付きで1回にまとめる）
     resources :dinners do
       resources :comments, only: [:create, :destroy]
     end
 
-    # 夜ごはん
-    resources :dinners, only: [:index, :show, :new, :create, :edit, :update, :destroy]
-
     # 検索
     get 'search', to: 'searches#search', as: 'public_search'
-    
-    #　タグ
     get 'tag_search', to: 'dinners#tag_search', as: 'tag_search'
     
     # ユーザー関連
@@ -52,18 +48,4 @@ Rails.application.routes.draw do
       end
     end
   end
-
-  # 管理者用
-  namespace :admin do
-    root to: 'top#index'  # ← これで /admin がトップページに
-    resources :users, only: [:index, :show, :destroy] do
-      member do
-        patch :restore
-      end
-    end
-    resources :comments, only: [:index, :destroy]  # ← コメント管理
-    resources :reviews, only: [:index, :destroy]    # ← レビュー管理
-  end
-  
-
 end

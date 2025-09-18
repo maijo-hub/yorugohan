@@ -1,7 +1,5 @@
-class Admin::ReviewsController < ApplicationController
-  layout 'admin'
-  before_action :authenticate_admin!
-
+class Admin::ReviewsController < Admin::BaseController
+  
   def index
     @comments = Comment.includes(:user, :dinner).where.not(rating: nil).order(created_at: :desc)
   end

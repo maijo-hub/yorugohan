@@ -11,8 +11,13 @@
 
     <p class="card-text text-muted">
       <i class="fas fa-align-left mr-1"></i>
-      <%= simple_format(recipe.description.truncate(100)) %>
+      <% if local_assigns[:full] %>
+        <%= simple_format(recipe.description) %>
+      <% else %>
+        <%= simple_format(recipe.description.truncate(100)) %>
+      <% end %>
     </p>
+
 
     <div class="d-flex justify-content-between align-items-center mt-3">
       <div class="text-muted small">
